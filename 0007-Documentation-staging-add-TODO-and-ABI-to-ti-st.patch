@@ -1,0 +1,74 @@
+From 60f16e6d186897f7cd1d2064345350fedcb130f1 Mon Sep 17 00:00:00 2001
+From: Pavan Savoy <pavan_savoy@ti.com>
+Date: Wed, 24 Mar 2010 12:10:42 -0400
+Subject: [PATCH 7/7] Documentation:staging: add TODO and ABI to ti-st
+
+A TODO file and a ABI to list the things to be done,
+and user-space/kernel-space interface for this ldisc.
+
+Signed-off-by: Pavan Savoy <pavan_savoy@ti.com>
+---
+ drivers/staging/ti-st/TODO      |   19 +++++++++++++++++++
+ drivers/staging/ti-st/sysfs-uim |   24 ++++++++++++++++++++++++
+ 2 files changed, 43 insertions(+), 0 deletions(-)
+ create mode 100644 drivers/staging/ti-st/TODO
+ create mode 100644 drivers/staging/ti-st/sysfs-uim
+
+diff --git a/drivers/staging/ti-st/TODO b/drivers/staging/ti-st/TODO
+new file mode 100644
+index 0000000..18be834
+--- /dev/null
++++ b/drivers/staging/ti-st/TODO
+@@ -0,0 +1,19 @@
++TODO:
++
++1. A per-device/tty port context required to support multiple devices
++on same platform.
++
++2. re-work on the sysfs entry PID passing mechanism, since there should
++be a better way to request user-space to install line discipline.
++
++3. Re-view/Re-work on the locking.
++
++4. Re-structure to make the ldisc driver more generic for chipsets which mux
++multiple connectivity (BT, FM, GPS) upon 1 TTY port.
++
++5. Step up and maintain this driver to ensure that it continues
++to work.  Having the hardware for this is pretty much a
++requirement.  If this does not happen, the will be removed in
++the 2.6.35 kernel release.
++
++Please send patches to Greg Kroah-Hartman <greg@kroah.com>.
+diff --git a/drivers/staging/ti-st/sysfs-uim b/drivers/staging/ti-st/sysfs-uim
+new file mode 100644
+index 0000000..899aa4d
+--- /dev/null
++++ b/drivers/staging/ti-st/sysfs-uim
+@@ -0,0 +1,24 @@
++What:           /sys/uim
++Date:           March 22
++Contact:        Pavan Savoy <pavan_savoy@ti.com>
++Description:
++                Create a new kobject to pass information about the
++		N_TI_SHARED line discipline created to application/daemon
++		which would install/un-install line discipline.
++
++What:           /sys/uim/pid
++Date:           March 22
++Contact:        Pavan Savoy <pavan_savoy@ti.com>
++Description:
++		The daemon/application wanting to use the line discipline
++		N_TI_SHARED will write in it's process Id, for the LDISC
++		driver to send SIGUSR2 signal to the process whenever a
++		upper layer protocol driver wants to make use of the LDISC
++		driver.
++
++What:           /sys/uim/protocols
++Date:           March 22
++Contact:        Pavan Savoy <pavan_savoy@ti.com>
++Description:
++		List the protocols currently making use of the LDISC to ensure
++		LDISC is not un-installed when BT/FM or GPS is making use of it.
+-- 
+1.5.4.3
+

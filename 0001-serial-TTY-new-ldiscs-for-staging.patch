@@ -1,0 +1,29 @@
+From 1ac5d2055c0378a9ab0c7fd49f937ed64be4c2bc Mon Sep 17 00:00:00 2001
+From: Pavan Savoy <pavan_savoy@ti.com>
+Date: Mon, 22 Mar 2010 14:37:04 -0400
+Subject: [PATCH 1/7] serial: TTY: new ldiscs for staging
+
+Push the max ldiscs by a few number to allow ldiscs
+to exist in the staging directory
+
+Signed-off-by: Pavan Savoy <pavan_savoy@ti.com>
+---
+ include/linux/tty.h |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/include/linux/tty.h b/include/linux/tty.h
+index 4409967..227c0a8 100644
+--- a/include/linux/tty.h
++++ b/include/linux/tty.h
+@@ -23,7 +23,7 @@
+  */
+ #define NR_UNIX98_PTY_DEFAULT	4096      /* Default maximum for Unix98 ptys */
+ #define NR_UNIX98_PTY_MAX	(1 << MINORBITS) /* Absolute limit */
+-#define NR_LDISCS		20
++#define NR_LDISCS		25	/* add few ldiscs for staging */
+ 
+ /* line disciplines */
+ #define N_TTY		0
+-- 
+1.5.4.3
+
